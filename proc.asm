@@ -171,8 +171,9 @@
             L1:
                 cmp byte PTR[di],0      ;¿final de cadena?
                 je  FIN                 ;si: termina
-                inc di                  ;no: apunta al siguiente
+  
                 mov byte ptr[di],0      ;suma 1 a la cuenta
+                inc di                  ;no: apunta al siguiente
                 jmp L1
             ;fin etiqueta
 
@@ -533,6 +534,13 @@
 
 
         mov ax,558
+        call toAscii
+        print corA 
+        print Num
+        print corC
+
+
+        mov ax,2
         call toAscii
         print corA 
         print Num
