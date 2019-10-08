@@ -85,6 +85,13 @@
 ;=========================== Ini Tratamiento Texto =======================
 
 ;=========================== Ini Extras ===================================
+
+	obtenerRandom macro 
+	
+		call Random
+	endm
+
+
 	ValorRegistro macro 
 		call ImprimeValor
 		print valor
@@ -98,3 +105,12 @@
 		call GetData
 	endm
 ;=========================== Fin Extras ===================================
+
+
+;=========================== Ini Juego ===================================
+
+	play macro 
+		call game
+	endm
+
+;=========================== Fin Juego ===================================

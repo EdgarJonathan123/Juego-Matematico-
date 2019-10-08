@@ -100,59 +100,6 @@
         ret
     WriteString endp
 
-    Invertir proc
-        ;--------------------------------------------------------------------;
-        ;   Recibe:      DS:[bp+6] fin token                                 ;
-        ;                DS:[bp+4] inicio token                              ;
-        ;                                                                    ;
-        ;   Devuelve:    nada, pero afecta el buffer                         ;
-        ;                                                                    ;
-        ;   Comentarios: invierte el token dado                              ;
-        ;--------------------------------------------------------------------;
-
-        ;ini Subrutina proglogo
-            push bp                    ;almacenamos el puntero base
-            mov  bp,sp                 ;ebp contiene la direccion de esp
-            pusha                      ;guarda los registros multiproposito
-
-
-            push word ptr[bp+4]        ;par1 = inicio token1
-            push word ptr[bp+6]        ;par2 = fin    token1
-            push offset tokenAux       ;par3=  inicio token2
-            call Copy_String           ;tenemos una copia del token para invertir
-
-            mov di,offset tokenAux    ;di=inicio token aux
-            mov cx,[bp+4]             ;cx=inicio token1
-            mov si,[bp+6]             ;si=fin token1
-            jmp COPIA
-        ;fin Subrutinas prologo
-            COPIA:
-                mov al,byte ptr[di]
-                mov byte ptr[si],al
-
-                cmp cx,si
-                je FIN
-
-                dec si
-                inc di
-
-                jmp COPIA
-            ;fn etiqueta
-        ;Ini Codigo--
-
-
-        ;Fin Codigo--
-
-        ;ini Subrutina epilogo
-            FIN:
-                popa                    ;obtenemos el valor devuelta
-                mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
-                pop bp                  ;restaura el valor del puntro base listo para el ret
-                ret 4
-            ;fin etiqueta
-        ;fin Subrutina epilogo
-    Invertir endp
-
     Copy_String proc
         ;--------------------------------------------------------------------;
         ;   Recibe:      DS:[bp+8]  inicio token1                            ;
@@ -244,6 +191,83 @@
 
     Clear_String endp
 
+    toAscii proc
+        ;--------------------------------------------------------------------
+        ;   Recibe:      AX = Numero decimal                                                
+        ;                                                                    
+        ;   Devuelve:    Num = llena a num con el numero     
+        ;                                                                    
+        ;   Comentarios: Separa el numero en digitos y pone  lso digitos en un arreglo                    
+        ;--------------------------------------------------------------------
+
+        ;ini Subrutina proglogo
+            push bp                    ;almacenamos el puntero base
+            mov  bp,sp                 ;ebp contiene la direccion de esp
+            sub  sp,2                  ;se guarda espacio para dos variables
+            mov word ptr[bp-2],0       ;var local =0 
+            pusha
+        ;fin Subrutina prologo
+
+        ;Ini Codigo--
+            push offset Num                    ;enviando un parametro
+            call Clear_String                  ;limpiamos el arreglo
+            xor si,si                          ;si=0
+
+
+            mov  bx,0d                    ;denota el fin de la cadena
+            push bx                       ;se pone en la pila el fin de cadena
+            
+
+
+            Bucle:  
+                cmp ax,0                    ;¿AX= 0?
+                je toNum                    ;si:enviar numero al arreglo
+                
+                mov bl,10                   ;divisor  = 10
+                div bl                      ;al=cociente, ah= residuo
+
+
+                add ah,48                   ;residuo +48 para  poner el numero en ascii
+                mov byte ptr[bp-2],ah       ;pasamos el ascii a un registro de 16 bits
+                mov bx, word ptr[bp-2]      
+
+                push bx                     ;lo metemos en la pila 
+                mov ah,0                    ;limpiamos la parte alta de ax
+
+                jmp Bucle
+            ;fin etiqueta
+
+
+            toNum:
+                pop bx                      ;obtenemos elemento de la pila
+                mov word ptr[bp-2],bx       ; pasamos de 16 bits a 8 bits 
+                mov al, byte ptr[bp-2]
+
+
+                cmp al,0                    ;¿Fin de Numero?
+                je FIN                      ;si: enviar al fin de l procedimiento
+                mov num[si],al              ;ponemos el numero en ascii en la cadena
+                inc si                      ;incrementamos los valores               
+                jmp toNum                   ;iteramos de nuevo 
+
+            ;fin etiqueta
+
+
+
+        ;Fin Codigo--
+
+        ;ini Subrutina epilogo
+            FIN:
+                popa
+                mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
+                pop bp                  ;restaura el valor del puntro base listo para el ret
+                ret 
+            ;fin etiqueta
+        ;fin Subrutna epilogo
+
+    toAscii endp
+
+
 ;================== Fin String =================================
 
 ;================== Ini Extras =================================
@@ -325,10 +349,54 @@
                 popa
                 mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
                 pop bp                  ;restaura el valor del puntro base listo para el ret
-                ret 2
+                ret 
             ;fin etiqueta
         ;fin Subrutna epilogo
     GetTime endp
+
+    Random proc 
+        ;--------------------------------------------------------------------
+        ;   Recibe:      Nada                                                
+        ;                                                                    
+        ;   Devuelve:    AX = Numero ramdon del uno al diez         
+        ;                                                                    
+        ;   Comentarios: Obtiene la hora del sistema                         
+        ;--------------------------------------------------------------------
+
+        ;ini Subrutina proglogo
+            push bp                    ;almacenamos el puntero base
+            mov  bp,sp                 ;ebp contiene la direccion de esp
+            sub  sp,2                  ;se guarda espacio para dos variables
+            mov word ptr[bp-2],0       ;var local =0
+            push dx
+            push bx
+        ;fin Subrutina prologo
+
+        ;Ini Codigo--
+            mov ah,2ch                  ;funcion de la hora
+            int 21h                     ;llamada a ms-dos
+
+            mov byte ptr[bp-2],dl       ;DL = Centesimas(No son precisas)    
+            mov ax,word ptr[bp-2]       ;diviendo = Centesimas
+            mov bl,10                   ;divisor  = 10
+            div bl                      ;al=cociente, ah= residuo
+
+            add bl,1                    ;mod %10 +1
+            mov ah,0
+            mov al,bl
+        ;Fin Codigo--
+
+
+        ;ini Subrutina epilogo
+            FIN:
+                push bx
+                push dx 
+                mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
+                pop bp                  ;restaura el valor del puntro base listo para el ret
+                ret 
+            ;fin etiqueta
+        ;fin Subrutna epilogo
+    Random endp
 
     GetData proc
         ;--------------------------------------------------------------------;
@@ -378,14 +446,12 @@
         ;Fin Codigo--
 
 
-
-
         ;ini Subrutina epilogo
             FIN:
                 popa
                 mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
                 pop bp                  ;restaura el valor del puntro base listo para el ret
-                ret 2
+                ret 
             ;fin etiqueta
         ;fin Subrutna epilogo
 
@@ -413,6 +479,7 @@
 
 
             mov byte ptr[bp-2],al       ;local=al
+
             mov ax,word ptr[bp-2]       ;diviendo
             mov bl,10                   ;divisor
             div bl                      ;al=cociente, ah= residuo
@@ -448,4 +515,29 @@
 
     ImprimeValor endp
 
+
 ;================== Fin Extras =================================
+
+
+;================== Ini Juego ==================================
+    
+    
+    Game proc
+
+        ;call Random
+        mov ax,2000
+        call toAscii
+        print corA 
+        print Num
+        print corC
+
+
+        mov ax,558
+        call toAscii
+        print corA 
+        print Num
+        print corC
+
+        ret
+    Game endp
+;================== Fin Juego ==================================

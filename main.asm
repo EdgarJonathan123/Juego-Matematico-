@@ -21,12 +21,21 @@ main proc
     ;fin etiqueta
 
     Cargar:
-        print msm20
+        println msm20   
+        print tab
+        ;read rutaArchivo
+	    abrirF rutaArchivo, ptrfileLectura
+		leerF ptrfileLectura, SIZEOF bufferLectura, bufferLectura
+        cerrarF ptrfileLectura    
+        print msmsucces1
+        getchar
         jmp menuprincipal
     ;fin etiqueta
-    
     Jugar:
         print msm21
+        print tab
+        play
+        getChar
         jmp menuprincipal
     ;rin etiqueta
     Top10:
@@ -71,6 +80,5 @@ main proc
         xor al,al
         int 21h
     ;fin etiqueta
-
 
 main endp
