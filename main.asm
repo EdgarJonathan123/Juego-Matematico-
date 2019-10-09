@@ -1,8 +1,11 @@
 main proc
-    IniciarDs
+    Inicio:
+        IniciarDs
+        println msm0
+        jmp menuprincipal
+    ;fin etiqueta
 
     menuprincipal:
-        println msm0
         println msm8
         print   tab
         getchar
@@ -33,9 +36,7 @@ main proc
     ;fin etiqueta
     Jugar:
         print msm21
-        print tab
         play
-        getChar
         jmp menuprincipal
     ;rin etiqueta
     Top10:

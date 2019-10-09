@@ -1,0 +1,26 @@
+Nombre                  |NoToken
+fin cadena              |0
+expMatematica           |1
+<arqui>                 |2
+</arqui>                |3
+<operacion1>            |4
+</operacion1>           |5
+<operacion2>            |6
+</operacion2>           |7
+<operacion3>            |8
+</operacion3>           |9
+<operacion4>            |10
+</operacion4>           |11
+<operacion5>            |12
+</operacion5>           |13
+<operacion6>            |14
+</operacion6>           |15
+<operacion7>            |16
+</operacion7>           |17
+<operacion8>            |18
+</operacion8>           |19
+<operacion9>            |20
+</operacion9>           |21
+<operacion10>           |22
+</operacion10>          |23
+valor inicial           |24

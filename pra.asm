@@ -12,5 +12,7 @@
 ;================== SECCION DE CODIGO =============================
     include main.asm
     include proc.asm
+    include ALex.asm
+    include ASin.asm
 ;================ FIN DE SECCION DE CODIGO ========================
-end 
+end main

@@ -1,7 +1,9 @@
 ;=========================== Ini Obtener Texto ===========================
  	print macro cadena 
+	 	push dx
 	    mov dx, offset cadena 
         call WriteString
+		pop dx
     endm
 
     println macro cadena
@@ -30,6 +32,37 @@
 		mov ah,01h
 		int 21h
 	endm
+
+	limpiarCadena macro cadena
+
+		push offset cadena
+		call Clear_String
+
+	endm 
+
+	printReg macro parameter1
+		mov ax,parameter1
+	    call toAscii
+		print Num
+	endm
+
+	copiarCadena macro string1,string2
+		push offset string2
+		push offset string1
+		call Copy_String
+	endm
+	
+	compararCadena macro string1,string2
+		push offset string2
+		push offset string1
+        call Compare_String
+	endm
+
+	Aminuscula macro string
+		push offset string
+		call toLowerCase
+	endm
+
 ;=========================== Fin Obtener Texto ===========================
 
 ;=========================== Ini Ficheros ================================
@@ -86,11 +119,15 @@
 
 ;=========================== Ini Extras ===================================
 
-	obtenerRandom macro 
-	
-		call Random
-	endm
+	obtenerRandom macro parameter1
+		push bx
+		mov bx, parameter1
+		push bx
 
+		call Random
+
+		push bx
+	endm
 
 	ValorRegistro macro 
 		call ImprimeValor
@@ -106,11 +143,110 @@
 	endm
 ;=========================== Fin Extras ===================================
 
-
 ;=========================== Ini Juego ===================================
 
 	play macro 
+
 		call game
+
 	endm
 
 ;=========================== Fin Juego ===================================
+
+;=========================== Fin ALex ====================================
+
+	llenarExpresiones macro
+		mov expresiones[0],expr0[0]
+		mov expresiones[1],expr1[0]
+		mov expresiones[2],expr2[0]
+		mov expresiones[3],expr3[0]
+		mov expresiones[4],expr4[0]
+		mov expresiones[5],expr5[0]
+		mov expresiones[6],expr6[0]
+		mov expresiones[7],expr7[0]
+		mov expresiones[8],expr8[0]
+		mov expresiones[9],expr9[0]
+	endm
+
+
+    Letra macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsLetra
+		pop dx
+	endm
+
+    Numero macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsNumero
+		pop dx
+	endm
+	
+    Operador macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsOperador
+		pop dx
+	endm
+
+    Blanco macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsBlanco
+		pop dx
+	endm
+
+    Mayor macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsMayor
+		pop dx
+	endm
+
+    Menor macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsMenor
+		pop dx
+	endm
+	
+    BarraInvertida macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsBarraInvertida
+		pop dx
+	endm
+
+    PtoComa macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsPtoComa
+		pop dx
+	endm
+
+	punto macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsPtoComa
+		pop dx
+	endm
+
+    FinCad macro parameter1
+		push dx
+		mov dx,parameter1
+		push dx
+        call EsFin
+		pop dx
+	endm
+
+;=========================== Fin ALex ====================================

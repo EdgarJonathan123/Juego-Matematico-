@@ -1,4 +1,4 @@
-;================ Fin Variables Globales ===========================
+;================ Fin Variables Globales ==============================
     ;Ini Uso de la Hora
         hora db 'Hora: 00:00:00',13,10,0
         fecha db 'Fecha : 00,00,2019',13,10,0
@@ -11,30 +11,27 @@
         tab   db 9,0
         corA db 91,0
         corC db 93,0
-        texto db ',',0
+        texto db 91,'salio del procedimiento',93,0
     ;Fin Caracter
     
-    Num db 10 dup(0)
+    ;Ini numeros
+        Num db 10 dup(0)
+    ;Fin numeros
 
 
-;================ Fin Variables Globales ===========================
 
-;================ Ini MenuPrincipal ================================
+;================ Fin Variables Globales ==============================
+
+;================ Ini MenuPrincipal ===================================
     msm0     db  '***UNIVERSIDAD DE SANCARLOS DE GUATEMALA***',13,10,'FACULTAD DE INGENIRIA',13,10,'CIENCIAS Y SISTEMAS',13,10,'ARQUITECTURA DE COMPUTADORES  Y ENSAMBLADORES 1',13,10,'SECCION B',13,10,'NOMBRE: EDGAR JONATHAN ARRECIS MARTINEZ',13,10,'CARNTE: 201602633',13,10,'TAREA PRACTICA 3',13,10,0
-    msm8     db  '****Menu Principal *****',13,10,'1) Cargar Archivo ',13,10,'2) Jugar',13,10,'3) Top 10 Punteos',13,10,'4) Generar Reportes',13,10,'5) Salir',0
+    msm8     db  13,10,'****Menu Principal *****',13,10,'1) Cargar Archivo ',13,10,'2) Jugar',13,10,'3) Top 10 Punteos',13,10,'4) Generar Reportes',13,10,'5) Salir',0
     msm20    db  'selecciono -> carga Archivo',13,10,0
     msm21    db  'selecciono -> Jugar',13,10,0
     msm22    db  'selecciono -> Top 10',13,10,0
     msm23    db  'selecciono -> Generar Reportes',13,10,0
     msm24    db  'selecciono -> Salir',13,10,0
 
-;================ Fin MenuPrincipal ================================
-
-
-
-;================ Fin Alerta Archivos  ================================
-
-;================ Fin Alerta Archivos  ================================
+;================ Fin MenuPrincipal ===================================
 
 ;================ Ini Variables Para Los Archivos =====================
 
@@ -61,6 +58,76 @@
 
 ;================ Fin Variables Para Los Archivos =====================
 
-;================ Ini Variables Que Usan Los Procedimientos ===========
+;================ Ini Variables Para el Juego =========================
 
-;================ Fin Variables Que Usan Los Procedimientos ===========
+    
+    nombre db 9,62,62,' Nombre: ',0
+    aleatorio db 13,10,9,62,62,' Random? y/n: ',0
+    noOperacion db 13,10,9,62,62,' #De Operacion: ',0
+
+
+    inInvalida db 13,10,9,62,62,'Entrada invalida',0
+    
+
+    NamePlayer db 50 dup(0)
+
+    tamanioExp   db 10d
+
+;================ Fin Variables Para el Juego =========================
+
+;================ Ini Variables Analisis Lexico =======================
+
+
+    errLexico  db 37,37,37,37,37,37,37,' Error Lexico ',37,37,37,37,37,37,37,0
+    contLexico db 'Caracter No Esperado: ',0
+
+    expresiones db 10 dup(0)
+    pivoteLex db  0d ;apunta al caracter acutal del analisis lexico
+    idToken   db  24d ;ver tabla de tokens en tokens.txt
+    lexema    db  50 dup(0)
+
+
+    
+    ;Ini Expresiones
+        expr0 db 50 dup(0)
+        expr1 db 50 dup(0)
+        expr2 db 50 dup(0)
+        expr3 db 50 dup(0)
+        expr4 db 50 dup(0)
+        expr5 db 50 dup(0)
+        expr6 db 50 dup(0)
+        expr7 db 50 dup(0)
+        expr9 db 50 dup(0)
+        expr10 db 50 dup(0)
+    ;Fin Expresiones
+
+    ;Ini Palabras Reservadas
+        PRarquiA    db 60,'arqui',62,0
+        PrarquiC    db 60,47,'arqui',62,0
+        PRop1A      db 60,'operacion1',62,0
+        PRop1C      db 60,47,'operacion1',62,0
+        PRop2A      db 60,'operacion2',62,0
+        PRop2C      db 60,47,'operacion2',62,0
+        PRop3A      db 60,'operacion3',62,0
+        PRop3C      db 60,47,'operacion3',62,0
+        PRop4A      db 60,'operacion4',62,0
+        PRop4C      db 60,47,'operacion4',62,0
+        PRop5A      db 60,'operacion5',62,0
+        PRop5C      db 60,47,'operacion5',62,0
+        PRop6A      db 60,'operacion6',62,0
+        PRop6C      db 60,47,'operacion6',62,0
+        PRop7A      db 60,'operacion7',62,0
+        PRop7C      db 60,47,'operacion7',62,0
+        PRop8A      db 60,'operacion8',62,0
+        PRop8C      db 60,47,'operacion8',62,0
+        PRop9A      db 60,'operacion9',62,0
+        PRop9C      db 60,47,'operacion9',62,0
+        PRop10A      db 60,'operacion10',62,0
+        PRop10C      db 60,47,'operacion10',62,0
+    ;Fin Palabras Reservadas
+
+;================ Fin Variables Analisis Lexico =======================
+
+;================ Fin Variables Analisis Sintactico =======================
+
+;================ Fin Variables Analisis Sintactico =======================
