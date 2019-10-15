@@ -100,6 +100,56 @@
         ret
     WriteString endp
 
+    Append_String proc
+        ;--------------------------------------------------------------------;
+        ;   Recibe:      DS:[bp+6]  inicio token2                            ;
+        ;                DS:[bp+4]  inicio token1                            ;
+        ;                                                                    ;
+        ;   Devuelve:    Solo afecta las cadenas enviadas                    ;
+        ;                                                                    ;
+        ;   Comentarios: Agrega al final de token2 el token1                 ;
+        ;--------------------------------------------------------------------;
+
+        ;ini Subrutina proglogo
+            push bp                    ;almacenamos el puntero base
+            mov  bp,sp                 ;ebp contiene la direccion de esp
+            pusha                      ;guarda los registros multiproposito
+        ;fin Surutina prologo
+
+        ;Ini Codigo--
+            
+            mov di,[bp+4]              ;di = direccion inicio token1
+            mov si,[bp+6]              ;si = direccion inicio token2
+            
+            push si                         ;Enviamos parameter1
+            call Str_length                 ;EAX = longitud de la cadena
+            add si,ax                       ;ECX = numero de bytes
+
+            COPIA:
+                cmp byte ptr[di],0d             ;¿termina el token 1?
+                je FIN                          ;si: termina la copia
+
+                mov al,byte ptr[di]
+                mov byte ptr[si],al
+
+                inc di
+                inc si
+                jmp COPIA
+            ;fn etiqueta
+
+        ;Fin Codigo--
+
+        ;ini Subrutina epilogo
+            FIN:
+                popa                    ;obtenemos el valor devuelta
+                mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
+                pop bp                  ;restaura el valor del puntro base listo para el ret
+                ret 4
+            ;fin etiqueta
+        ;fin Subrutina epilogo
+
+    Append_String endp
+
     Copy_String proc
         ;--------------------------------------------------------------------;
         ;   Recibe:      DS:[bp+6]  inicio token2                            ;
@@ -211,10 +261,8 @@
             call Clear_String                  ;limpiamos el arreglo
             xor si,si                          ;si=0
 
-
-            mov  bx,0d                    ;denota el fin de la cadena
-            push bx                       ;se pone en la pila el fin de cadena
-            
+            mov  bx,0d                          ;denota el fin de la cadena
+            push bx                             ;se pone en la pila el fin de cadena
 
             Bucle:  
                 cmp ax,0                    ;¿AX= 0?
@@ -316,8 +364,10 @@
             mov di,[bp+6]                           ;si = string2
 
             L1:
+                
                 mov al,byte ptr[si]                 ;al = string1[si]
                 mov dl,byte ptr[di]                 ;sl = string2[di]
+
                 cmp al,0                            ;¿Final de string1?
                 jne L2                              ;no
                 cmp dl,0                            ;si: ¿final de string2?
@@ -375,12 +425,12 @@
             ;fin etiqueta
 
     	    VerificMayuscula: 
-                mov al,byte ptr[di]
-        	    cmp al,'A'                          ;¿es menor que'A'?
+        	    cmp al,65d                          ;¿es menor que'A'?
             	jb AUMENTAR                         ;si: no hace nada
-                cmp al,'Z'                          ;¿es mayor  que'Z'?
+                cmp al,90d                          ;¿es mayor  que'Z'?
                 ja AUMENTAR                         ;si: no hace nada
                 add al,32                           ;no: lo hace minuscula 
+                mov byte ptr[di],al
         	    jmp AUMENTAR    
             ;fin etiqueta
         
@@ -407,6 +457,7 @@
 
 ;================== Ini Extras =================================
     PrintAl proc
+
         push ax
         push dx
 
@@ -416,6 +467,7 @@
 
         pop dx
         pop ax
+
     PrintAl endp
 
     GetTime proc
@@ -592,8 +644,6 @@
                 ret 
             ;fin etiqueta
         ;fin Subrutna epilogo
-
-
     GetData endp
 
     ImprimeValor proc
@@ -614,8 +664,6 @@
         ;fin Subrutina prologo
 
         ;Ini Codigo--
-
-
             mov byte ptr[bp-2],al       ;local=al
 
             mov ax,word ptr[bp-2]       ;diviendo
@@ -636,11 +684,7 @@
             mov valor[di+6],ah          ;decena
             add al,48
             mov valor[di+5],al          ;centena
-
         ;Fin Codigo--
-
-
-
 
         ;ini Subrutina epilogo
             FIN:
@@ -653,100 +697,100 @@
 
     ImprimeValor endp
 
+    toDecimal proc
+        ;--------------------------------------------------------------------;
+        ;   Recibe:      [BP+4]   cadena                                     ;
+        ;                                                                    ;
+        ;   Devuelve:    AX=NUMERO EN DECIMAL                                ;
+        ;                                                                    ;
+        ;   Comentarios: convierte una cadena ascii a un numero decimal      ;
+        ;--------------------------------------------------------------------;
+
+        ;ini Subrutina proglogo
+            push bp                    ;almacenamos el puntero base
+            mov  bp,sp                 ;ebp contiene la direccion de esp
+            sub  sp,2                  ;se guarda espacio para dos variables
+            mov word ptr[bp-2],0       ;var local =0
+            push di
+            mov di,word ptr[bp+4]      ;di 
+            dec di
+            xor ax,ax
+            xor bx,bx
+        ;fin Subrutina prologo
+
+
+        ;Ini Codigo--
+         
+            S0:
+                inc di
+
+
+                FinCad di
+                cmp bx,1                    ;es fin de cadena?
+                je FIN
+
+
+                Numero di
+                cmp bx,1
+                je S1
+
+                
+                
+            ;fin
+
+            S1:
+            
+                mov al, byte ptr[di]
+                sub al,48
+                mov byte ptr[bp-2],al
+                mov ax, word ptr[bp-2]
+
+                inc di
+
+
+                Numero di
+                cmp bx,1
+                je S2
+
+                FinCad di
+                cmp bx,1                    ;es fin de cadena?
+                je FIN
+            ;fin
+            ;estado de aceptacion
+            S2:
+                mov bx,10d
+                mul bx              ;ax=ax*10
+
+                mov bl,byte ptr[di]
+                sub bl,48
+                mov byte ptr[bp-2],bl
+                mov bx,word ptr[bp-2]
+
+                add ax,bx 
+
+                inc di
+
+                Numero di
+                cmp bx,1
+                je S2
+
+                FinCad di
+                cmp bx,1                    ;es fin de cadena?
+                je FIN
+            ;fin
+
+        ;Fin Codigo--
+
+        ;ini Subrutina epilogo
+            FIN:
+                printReg ax
+                pop di
+                mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
+                pop bp                  ;restaura el valor del puntro base listo para el ret
+                ret 2
+            ;fin etiqueta
+        ;fin Subrutna epilogo
+    toDecimal endp
+
 ;================== Fin Extras =================================
 
-;================== Ini Juego ==================================
-
-    Game proc
-        ;--------------------------------------------------------------------
-        ;   Recibe:      Nada                                              
-        ;                                                                    
-        ;   Devuelve:    Nada     
-        ;                                                                    
-        ;   Comentarios: Maneja todo el funcionamiento del juego                  
-        ;--------------------------------------------------------------------
-
-
-        ;ini Subrutina proglogo
-        ;fin Subrutina prologo
-
-        ;Ini Codigo--
-
-            ;obtenerRandom 8d 
-            ;print tab
-            ;printReg ax
-
-            print nombre
-            read NamePlayer
-            call verificaRandom
-        ;Fin Codigo--
-
-        ;ini Subrutina epilogo
-            FIN:
-                ret         
-            ;fin etiqueta
-        ;fin Subrutna epilogo
-    Game endp
-
-    verificaRandom proc
-
-        ;--------------------------------------------------------------------
-        ;   Recibe:      nada                                               
-        ;                                                                   
-        ;   Devuelve:    Nada     
-        ;                                                                    
-        ;   Comentarios: Usa ramdon o no dependiendo lo ingresado por el usuario                  
-        ;--------------------------------------------------------------------
-
-
-        ;ini Subrutina proglogo
-            push ax
-            push di
-        ;fin Subrutina prologo
-
-        ;Ini Codigo--
-            
-   
-            PedirAleatorio:
-                print aleatorio
-                getchar
-                cmp al,89d   ;Y
-                je yes
-                cmp al,121d  ;y
-                je yes
-                cmp al,78d   ;N
-                je NO
-                cmp al,110d  ;n
-                je NO
-                print inInvalida
-                jmp PedirAleatorio
-            ;fin etiqueta
-
-            yes:
-                mov di, offset tamanioExp
-                mov ax, [di]
-                obtenerRandom ax
-                printReg ax
-                
-                jmp FIN
-            ;fin etiqueta
-
-            NO:
-               print noOperacion 
-               getchar
-               jmp FIN
-            ;fin etiqueta
-
-
-        ;Fin Codigo--
-
-        ;ini Subrutina epilogo
-            FIN:
-                pop di
-                pop ax
-                ret         
-            ;fin etiqueta
-        ;fin Subrutna epilogo
-    verificaRandom endp
-   
-;================== Fin Juego ==================================

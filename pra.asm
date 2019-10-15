@@ -13,6 +13,6 @@
     include main.asm
     include proc.asm
     include ALex.asm
-    include ASin.asm
+    include juego.asm
 ;================ FIN DE SECCION DE CODIGO ========================
 end main

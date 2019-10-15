@@ -1,0 +1,29 @@
+digraph g {
+
+    rankdir=LR;
+    size="8,5"
+
+    node [style=filled, fillcolor=skyblue ,color=black]
+    node [shape = point]; qi
+    node [shape = circle];
+
+    qi -> S0;
+
+    S0  -> S0 [ label="blanco"]
+    S0  -> S1 [ label = "Numero" ];
+    S1  -> S1 [ label = "Numero" ];
+    S0  -> S3  [ label ="operador" ];
+    S3  -> S5  [ label ="operador" ];
+
+    node [shape = doublecircle]; S4;
+    
+    S5  -> S4  [ label="Cualquier Cosa" ];
+    S3  -> S4  [ label ="Cualquier Cosa" ];
+    S1  -> S4 [ label = "Cualquier Cosa" ];
+    
+
+
+
+
+
+}

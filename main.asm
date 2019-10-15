@@ -4,7 +4,6 @@ main proc
         println msm0
         jmp menuprincipal
     ;fin etiqueta
-
     menuprincipal:
         println msm8
         print   tab
@@ -22,15 +21,17 @@ main proc
             je SALIR
         jmp menuprincipal
     ;fin etiqueta
-
     Cargar:
         println msm20   
-        print tab
         ;read rutaArchivo
 	    abrirF rutaArchivo, ptrfileLectura
 		leerF ptrfileLectura, SIZEOF bufferLectura, bufferLectura
         cerrarF ptrfileLectura    
+
+        call Analisis
+        println space
         print msmsucces1
+
         getchar
         jmp menuprincipal
     ;fin etiqueta
@@ -48,38 +49,42 @@ main proc
         jmp menuprincipal
     ;fin etiqueta
 
-
     ;==============================Errores======================================
 
-    ErrorAbrir:
-	    println msmError1
-	    getChar
-	    jmp menuprincipal
-    ;fin etiqueta
-    ErrorLeer:
-	    println msmError2
-	    getChar
-	    jmp menuprincipal
-    ;fin etiqueta
-    ErrorCrear:
-	    println msmError3
-	    getChar
-	    jmp menuprincipal
-    ;fin etiqueta
-	ErrorEscribir:
-	    println msmError4
-	    getChar
-	    jmp menuprincipal
-    ;fin etiqueta
-    ErrorCerrar:
-	    println msmError5
-	    getChar
-	    jmp menuprincipal
-    ;fin etiqueta
-    salir:
-        mov ah,4ch ; numero de funcion para finalizar el programa
-        xor al,al
-        int 21h
-    ;fin etiqueta
+        ErrorAbrir:
+	        println msmError1
+	        getChar
+	        jmp menuprincipal
+        ;fin etiqueta
 
+        ErrorLeer:
+	        println msmError2
+	        getChar
+	        jmp menuprincipal
+        ;fin etiqueta
+
+        ErrorCrear:
+	        println msmError3
+	        getChar
+	        jmp menuprincipal
+        ;fin etiqueta
+
+	    ErrorEscribir:
+	        println msmError4
+	        getChar
+	        jmp menuprincipal
+        ;fin etiqueta
+
+        ErrorCerrar:
+	        println msmError5
+	        getChar
+	        jmp menuprincipal
+        ;fin etiqueta
+        
+        salir:
+            mov ah,4ch ; numero de funcion para finalizar el programa
+            xor al,al
+            int 21h
+        ;fin etiqueta
+      ;==============================Errores======================================
 main endp

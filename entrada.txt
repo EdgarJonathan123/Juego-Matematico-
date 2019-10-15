@@ -1,35 +1,25 @@
-<arqui1>
+<aRqui1>
 
     <Operacion1>
+        5+5*25!;
     </Operacion1>
                 
     <Operacion2>
+        8-9+3;
     </Operacion2>
-                
+       
     <Operacion3>
+        56+35;     
     </Operacion3>
-                
+              
     <Operacion4>
+        898**96;
     </Operacion4>
-                
-    <Operacion4>
-    </Operacion4>
-                
+                     
+                   
     <Operacion5>
+        5+5*25!; 
     </Operacion5>
-                
-    <Operacion6>
-    </Operacion6>
-                
-    <Operacion7>
-    </Operacion7>
-                
-    <Operacion8>
-    </Operacion8>
-                
-    <Operacion9>
-    </Operacion9>
-    
-    <Operacion10>
-    </Operacion10>
+                 
+
 </arqui1>

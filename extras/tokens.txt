@@ -24,3 +24,4 @@ expMatematica           |1
 <operacion10>           |22
 </operacion10>          |23
 valor inicial           |24
+errorS                  |25
