@@ -38,6 +38,7 @@ main proc
     Jugar:
         print msm21
         play
+        getchar
         jmp menuprincipal
     ;rin etiqueta
     Top10:

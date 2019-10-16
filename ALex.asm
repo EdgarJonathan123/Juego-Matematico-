@@ -511,7 +511,7 @@
 
     EsFin proc
         ;--------------------------------------------------------------------;
-        ;   Recibe:      DS:[bp+4] apunta al caracter                        ;
+        ;   Recibe:      DI apunta al caracter                        ;
         ;                                                                    ;
         ;   Devuelve:    BX = 0  no es punto y coma                          ;
         ;                BX = 1  es punto y coma                             ;
@@ -893,6 +893,9 @@
                 cmp bx,1
                 je S9
 
+                Operador di
+                cmp bx,1
+                je S7
 
                 Numero di
                 cmp bx,1

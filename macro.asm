@@ -42,10 +42,8 @@
 	endm
 
 	limpiarCadena macro cadena
-
 		push offset cadena
 		call Clear_String
-
 	endm 
 
 	Concatenar macro string1,string2
@@ -54,13 +52,34 @@
 		call Append_String
 	endm
 
+
+	Concatenar1 macro string1,string2
+		push offset string2
+		push  string1
+		call Append_String
+	endm
+
+
 	printReg macro parameter1
 		push ax		
 		mov ax,parameter1
 	    call toAscii
 		print corA
 		print Num
-		println corC
+		print corC
+		pop ax
+	endm
+
+	CalculaFactorial macro parameter1
+		push parameter1
+	    call calcFac
+
+	endm
+
+	Ascii macro parameter1
+		push ax		
+		mov ax,parameter1
+	    call toAscii
 		pop ax
 	endm
 
@@ -161,6 +180,14 @@
 		call game
 	endm
 
+	evaluar macro parameter1
+		push bx
+		mov bx,parameter1
+		push bx 
+		call evaluarExpr
+		pop bx
+	endm
+
 ;=========================== Fin Juego ===================================
 
 ;=========================== Fin ALex ====================================
@@ -172,58 +199,80 @@
 
 
     Letra macro parameter1
+		push di
 		mov di, parameter1
         call EsLetra
+		pop di
 	endm
 
     Numero macro parameter1
+		push di
 		mov di, parameter1
         call EsNumero
+		pop di
 	endm
 	
     Operador macro parameter1
+		push di
 		mov di, parameter1
         call EsOperador
+		pop di
 	endm
 
     Blanco macro parameter1
+		push di
 		mov di, parameter1
         call EsBlanco
+		pop di
 	endm
 
     Mayor macro parameter1
+		push di
 		mov di, parameter1
         call EsMayor
+		pop di
 	endm
 
     Menor macro parameter1
+		push di
 		mov di, parameter1
         call EsMenor
+		pop di
 	endm
 	
     BarraInvertida macro parameter1
+		push di
 		mov di, parameter1
         call EsBarraInvertida
+		pop di
 	endm
 
     PtoComa macro parameter1
+		push di
 		mov di, parameter1
         call EsPtoComa
+		pop di
 	endm
 
 	punto macro parameter1
+		push di
 		mov di, parameter1
         call EsPunto
+		pop di
 	endm
 
     FinCad macro parameter1
-		push parameter1
+		push di
+		mov di, parameter1
         call EsFin
+		pop di
 	endm
 
 	Fac macro parameter1
-		push parameter1
+		push di
+		mov di, parameter1
 		call EsFactorial
+		pop di
 	endm
 
 ;=========================== Fin ALex ====================================

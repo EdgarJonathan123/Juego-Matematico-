@@ -5,11 +5,11 @@
     </Operacion1>
                 
     <Operacion2>
-        8-9+3;
+        5!;
     </Operacion2>
        
     <Operacion3>
-        56+35;     
+        35-5!*1/4-2!;     
     </Operacion3>
               
     <Operacion4>

@@ -261,8 +261,11 @@
             call Clear_String                  ;limpiamos el arreglo
             xor si,si                          ;si=0
 
-            mov  bx,0d                          ;denota el fin de la cadena
-            push bx                             ;se pone en la pila el fin de cadena
+            cmp ax,0                           ;si ax, ya viene con un cero
+            je casoMinimo
+            
+            mov  bx,0                          ;denota el fin de la cadena
+            push bx                            ;se pone en la pila el fin de cadena
 
             Bucle:  
                 cmp ax,0                    ;¿AX= 0?
@@ -282,7 +285,6 @@
                 jmp Bucle
             ;fin etiqueta
 
-
             toNum:
                 pop bx                      ;obtenemos elemento de la pila
                 mov word ptr[bp-2],bx       ; pasamos de 16 bits a 8 bits 
@@ -298,6 +300,13 @@
 
             ;fin etiqueta
 
+            
+            casoMinimo:
+                add al,48d                         ;convertimos 0 ascii
+                mov Num[si],al                     ;Lo pasamos a num
+
+                jmp FIN
+            ;fin
 
 
         ;Fin Codigo--
@@ -783,7 +792,6 @@
 
         ;ini Subrutina epilogo
             FIN:
-                printReg ax
                 pop di
                 mov sp,bp               ;esp vuelve apuntar al inicio y elimina las variables locales
                 pop bp                  ;restaura el valor del puntro base listo para el ret

@@ -12,14 +12,21 @@ digraph g {
     S0  -> S0 [ label="blanco"]
     S0  -> S1 [ label = "Numero" ];
     S1  -> S1 [ label = "Numero" ];
-    S0  -> S3  [ label ="operador" ];
-    S3  -> S5  [ label ="operador" ];
+    S0  -> S2  [ label ="operador" ];
+    S2  -> S3  [ label ="operador" ];
+    S0  -> S4  [ label ="Factorial" ];
 
-    node [shape = doublecircle]; S4;
     
-    S5  -> S4  [ label="Cualquier Cosa" ];
-    S3  -> S4  [ label ="Cualquier Cosa" ];
-    S1  -> S4 [ label = "Cualquier Cosa" ];
+    S4  -> Factorial  [ label ="Cualquier Cosa" ]
+    S3  -> Elevacion  [ label ="Cualquier Cosa" ];
+    S2  -> Operador  [ label ="Cualquier Cosa" ];
+    S1  -> Numero [ label = "Cualquier Cosa" ];
+
+    node [shape = doublecircle];
+    Numero -> FIN
+    Elevacion -> FIN
+    Operador  -> FIN
+    Factorial -> FIN
     
 
 

@@ -12,7 +12,12 @@
         tab   db 9,0
         corA db 91,0
         corC db 93,0
-        texto db    91,'fdd',93,0
+        texto db    'Operando1->',0
+        salio db    'aux-> ',0
+        codigo db   'id-> ',0
+        salida db    'Salio',0
+        entrada db    'Entro',0
+        nada db 'estmaos en la recursividad',0
         aux   db 100 dup(0)
        ;Fin Caracter
     
@@ -66,10 +71,20 @@
     noOperacion db 13,10,9,62,62,' #De Operacion: ',0
 
     inInvalida db 13,10,9,62,62,'Entrada invalida',0
-    pin        db 13,10,9,62,62,0
+   
     
-
     NamePlayer db 50 dup(0)
+
+    ;Ini Operaciones
+        potencia  db  42,42,0
+        LastOp     db 0,0,0
+        pin        db 13,10,9,62,62,0
+        interrogacion db '?',0
+        VOperador db '00',0     ;para saber que operador se encontro
+        ErrorOp   db 'Ocurrio algun error xd',0
+        
+    ;Fin Operaciones
+
 
 ;================ Fin Variables Para el Juego =========================
 
@@ -85,7 +100,7 @@
 
     ;pivoteLex db  0d  ;apunta al caracter acutal del analisis lexico
     idToken   db  24d  ;ver tabla de tokens en tokens.txt
-    lexema    db  50 dup(0)
+    lexema    db  200 dup(0)
     ptrExpr   word  0d   ;cuenta cuantas expresiones hay actualmente
     tamanioExp   word 0d
 
@@ -135,7 +150,6 @@
 
 ;================ Fin Variables PostFijo ==============================
 
-    VOperador db '00',0     ;para saber que operador se encontro
-    ErrorOp   db 'Ocurrio algun error xd',0
+    
 
 ;================ Fin Variables PostFijo===============================
