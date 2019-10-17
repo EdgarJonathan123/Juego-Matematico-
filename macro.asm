@@ -276,3 +276,55 @@
 	endm
 
 ;=========================== Fin ALex ====================================
+
+
+
+crearReporteFinal macro
+	mov ah, 3ch
+	mov cx, 00h
+	lea dx, rutaRFinal
+	int 21h
+	jc ErrorCrear
+	mov ptrRFinal, ax
+endm
+
+;====================================
+escribirF macro handle, numBytes, buffer
+	mov ah, 40h
+	mov bx, handle
+	mov cx, numBytes
+	lea dx, buffer
+	int 21h
+	jc ErrorEscribir
+endm
+
+escribirRFinal macro numBytes, buffer
+	mov ah, 40h
+	mov bx, ptrRFinal
+	mov cx, numBytes
+	lea dx, buffer
+	int 21h
+	jc ErrorEscribir
+endm
+;====================================
+
+cerrarRFinal macro
+    mov ah,3eh
+    mov bx,ptrRFinal
+    int 21h
+    jc ErrorCerrar
+endm
+
+
+contarElementos macro arreglo   ;en di te devuelve el numero de elementos del arreglo en di
+    LOCAL continuar, finalizar
+    xor di,di
+    continuar:
+        cmp arreglo[di],0
+        je finalizar
+        inc di
+        jmp continuar
+    finalizar: 
+endm
+
+

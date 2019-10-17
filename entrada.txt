@@ -1,19 +1,19 @@
 <aRqui1>
 
     <Operacion1>
-        5+5*25!;
+        5!+5*5-120;
     </Operacion1>
                 
     <Operacion2>
-        5!;
+        5!+5;
     </Operacion2>
        
     <Operacion3>
-        35-5!*1/4-2!;     
+        90-0!*8/4-6%5;     
     </Operacion3>
               
     <Operacion4>
-        898**96;
+        8**6;
     </Operacion4>
                      
                    

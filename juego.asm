@@ -20,10 +20,18 @@
             ;printReg ax
 
             print nombre
-            read NamePlayer
+            read  NamePlayer
             call verificaRandom
-    
+
+            call CalcularValorRespuesta
             call RecorrerExpresion
+
+            print pin 
+            print PunteoFinal
+
+            mov ax, NotaPlayer[0]
+            ascii ax
+            print Num
 
 
         
@@ -35,6 +43,247 @@
             ;fin etiqueta
         ;fin Subrutna epilogo
     Game endp
+
+    asignarNombre proc
+        push ax
+
+            mov ax,ptrPlayer[0]
+
+            Elegir:
+                cmp ax,1d
+                je jugador1
+                cmp ax,2d
+                je jugador2
+                cmp ax,3d
+                je jugador3
+                cmp ax,4d
+                je jugador4
+                cmp ax,5d
+                je jugador5
+                cmp ax,6d
+                je jugador6
+                cmp ax,7d
+                je jugador7
+                cmp ax,8d
+                je jugador8
+                cmp ax,9d
+                je jugador9
+                cmp ax,10d
+                je jugador10
+
+            ;fin
+            
+            
+
+
+
+
+            jugador1:
+                read Player1
+                jmp FIN
+            ;fin
+            jugador2:
+                read Player2
+                jmp FIN
+            ;fin
+            jugador3:
+                read Player3
+                jmp FIN
+            ;fin
+            jugador4:
+                read Player4
+                jmp FIN
+            ;fin
+            jugador5:
+                read Player5
+                jmp FIN
+            ;fin
+            jugador6:
+                read Player6
+                jmp FIN
+            ;fin
+            jugador7:
+                read Player7
+                jmp FIN
+            ;fin
+            jugador8:
+                read Player8
+                jmp FIN
+            ;fin
+            jugador9:
+                read Player9
+                jmp FIN
+            ;fin
+            jugador10:
+                read Player10
+                jmp FIN
+            ;fin
+
+        
+        FIN:
+            pop ax
+            ret
+    asignarNombre endp
+
+    asignarNota proc
+            ; Recibe:       BX = Nota del Jugador
+            ; Devuelve:     Nada
+            ; Comentario:   Asigna la nota al jugador
+           push ax
+
+            mov ax,ptrPlayer[0]
+
+            Elegir:
+                cmp ax,1d
+                je jugador1
+                cmp ax,2d
+                je jugador2
+                cmp ax,3d
+                je jugador3
+                cmp ax,4d
+                je jugador4
+                cmp ax,5d
+                je jugador5
+                cmp ax,6d
+                je jugador6
+                cmp ax,7d
+                je jugador7
+                cmp ax,8d
+                je jugador8
+                cmp ax,9d
+                je jugador9
+                cmp ax,10d
+                je jugador10
+
+            ;fin
+
+
+            jugador1:
+                mov Nota1[0],bx
+                jmp FIN
+            ;fin
+            jugador2:
+                mov Nota2[0],bx
+                jmp FIN
+            ;fin
+            jugador3:
+                mov Nota3[0],bx
+                jmp FIN
+            ;fin
+            jugador4:
+                mov Nota4[0],bx
+                jmp FIN
+            ;fin
+            jugador5:
+                mov Nota5[0],bx
+                jmp FIN
+            ;fin
+            jugador6:
+                mov Nota6[0],bx
+                jmp FIN
+            ;fin
+            jugador7:
+                mov Nota7[0],bx
+                jmp FIN
+            ;fin
+            jugador8:
+                mov Nota8[0],bx
+                jmp FIN
+            ;fin
+            jugador9:
+                mov Nota9[0],bx
+                jmp FIN
+            ;fin
+            jugador10:
+                mov Nota10[0],bx
+                jmp FIN
+            ;fin
+
+        
+        FIN:
+            pop ax
+            ret
+    asignarNota endp
+
+    getNota proc
+            ; Recibe:       puntero al jugador
+            ; Devuelve:     BX = Nota Actual del Jugador
+            ; Comentario:   Asigna la nota al jugador
+           push ax
+
+            mov ax,ptrPlayer[0]
+
+            Elegir:
+                cmp ax,1d
+                je jugador1
+                cmp ax,2d
+                je jugador2
+                cmp ax,3d
+                je jugador3
+                cmp ax,4d
+                je jugador4
+                cmp ax,5d
+                je jugador5
+                cmp ax,6d
+                je jugador6
+                cmp ax,7d
+                je jugador7
+                cmp ax,8d
+                je jugador8
+                cmp ax,9d
+                je jugador9
+                cmp ax,10d
+                je jugador10
+
+            ;fin
+
+
+            jugador1:
+                mov bx,Nota1[0]
+                jmp FIN
+            ;fin
+            jugador2:
+                mov bx,Nota2[0]
+                jmp FIN
+            ;fin
+            jugador3:
+                mov bx,Nota3[0]
+                jmp FIN
+            ;fin
+            jugador4:
+                mov bx,Nota4[0]
+                jmp FIN
+            ;fin
+            jugador5:
+                mov bx,Nota5[0]
+                jmp FIN
+            ;fin
+            jugador6:
+                mov bx,Nota6[0]
+                jmp FIN
+            ;fin
+            jugador7:
+                mov bx,Nota7[0]
+                jmp FIN
+            ;fin
+            jugador8:
+                mov bx,Nota8[0]
+                jmp FIN
+            ;fin
+            jugador9:
+                mov bx,Nota9[0]
+                jmp FIN
+            ;fin
+            jugador10:
+                mov bx,Nota10[0]
+                jmp FIN
+            ;fin
+
+        
+        FIN:
+            pop ax
+            ret
+    getNota endp
 
     verificaRandom proc
 
@@ -182,6 +431,69 @@
 
 ;================== Ini Operaciones ============================
 
+    CalcularValorRespuesta proc
+        ;--------------------------------------------------------------------
+        ;   Recibe:      Nada                                              
+        ;                                                                    
+        ;   Devuelve:    BX = Numero de Expresiones     
+        ;                                                                    
+        ;   Comentarios: Calcula el valor de cada resppuesta en la expresion               
+        ;--------------------------------------------------------------------
+
+        ;ini Subrutina proglogo
+            push si
+            push di
+        ;fin Subrutina prologo
+
+        ;Ini Codigo--
+            xor di,di
+            xor si,si
+            mov di,offset expresion             ;obtenemos la direccion Inicial de expresion
+            jmp Bucle
+
+            Bucle:
+                mov al,[di]
+                cmp al,0d                       ;¿Es fin de cadena?
+                je Puntaje
+
+                call getDato
+
+                cmp ax,2                        ;¿Lesite Un Operador? 
+                je Operadorr
+
+                jmp Bucle
+            ;Fin etiqueta
+
+            Operadorr:
+                inc si
+                jmp bucle
+            ;fin
+
+            Puntaje:
+                mov NumeroOperaciones[0],si
+
+                mov dx,0d
+                mov ax,100
+                mov bx,si
+                div bx  
+
+                mov PunteoPorOperacion[0],ax           ;puntaje = 100/Numero de operaciones
+
+                jmp FIN
+            ;fin
+         
+
+        ;Fin Codigo--
+
+        ;ini Subrutina epilogo
+            FIN:
+                pop di
+                pop si
+                ret 
+            ;fin etiqueta
+        ;fin Subrutna epilogo
+    CalcularValorRespuesta endp
+
 
     RecorrerExpresion proc
 
@@ -226,8 +538,6 @@
                 jmp bucle
             ;fin
 
-         
-
         ;Fin Codigo--
 
         ;ini Subrutina epilogo
@@ -254,7 +564,7 @@
         ;ini Subrutina proglogo
             push bp                    ;almacenamos el puntero base
             mov  bp,sp                 ;ebp contiene la direccion de esp
-            sub  sp,8                  ;se guarda espacio para dos variables
+            sub  sp,10                  ;se guarda espacio para dos variables
             push bx
             push di
             xor di,di
@@ -266,6 +576,8 @@
             mov word ptr[bp-4],0                ;var temp1  = 0
             mov word ptr[bp-6],0                ;var temp2  = 0
             mov word ptr[bp-8],0                ;var Result = 0
+            mov word ptr[bp-10],0               ;convert = 0
+
 
             mov di,offset expresion             ;obtenemos la direccion Inicial de expresion
             jmp Bucle
@@ -370,6 +682,8 @@
                 cmp LastOp[0],'/'
                 je Division               
 
+                cmp LastOp[0],'%'
+                je Modulo     
                 
                 jmp FIN
             ;Fin
@@ -399,9 +713,9 @@
                 print interrogacion
                 print pin
 
-                getchar
+                jmp Respuesta
 
-                jmp Bucle
+                ;jmp Bucle
             ;fin
 
             Suma:
@@ -426,9 +740,9 @@
                 print interrogacion
                 print pin
 
-                getchar
+                jmp Respuesta
 
-                jmp Bucle
+                ;jmp Bucle
             ;fin
 
             Resta:
@@ -452,19 +766,21 @@
                 print interrogacion
                 print pin 
 
-                getchar
+                jmp Respuesta
 
 
-                jmp Bucle
+                ;jmp Bucle
             ;fin
 
             Multiplicacion:
+
                 mov ax,word ptr[bp-4]           ;temp1 =ax
                 mov bx,word ptr[bp-6]           ;temp2 =bx   
                 mul bx  
                 mov word ptr[bp-8],ax           ;resutl = temp1*temp2
                 Ascii ax
                 Concatenar Num,lexema  
+               
 
 
                 print pin
@@ -480,10 +796,10 @@
                 print interrogacion
                 print pin
 
-                getchar
+                jmp Respuesta
 
 
-                jmp Bucle
+                ;jmp Bucle
             ;fin
 
             Division:
@@ -509,10 +825,41 @@
                 print interrogacion
                 print pin
 
-                getchar
+                jmp Respuesta
 
 
-                jmp Bucle
+                ;jmp Bucle
+            ;fin
+
+            Modulo:
+                mov dx,0d
+                mov ax,word ptr[bp-4]           ;temp1 =ax
+                mov bx,word ptr[bp-6]           ;temp2 =bx   
+                div bx  
+
+                mov ax,dx
+                mov word ptr[bp-8],ax           ;resutl = temp1/stemp2
+                Ascii ax
+                Concatenar Num,lexema  
+
+
+                print pin
+                mov bx,word ptr[bp-4]           ;temp1=bx
+                Ascii bx                        ;temp1 se paso a ascii
+                print Num
+
+                print LastOp
+
+                mov bx,word ptr[bp-6]           ;temp1=bx
+                Ascii bx                        ;temp1 se paso a ascii
+                print Num
+                print interrogacion
+                print pin
+
+                jmp Respuesta
+
+
+                ;jmp Bucle
             ;fin
 
             Elevar:
@@ -553,15 +900,60 @@
                 print interrogacion
                 print pin
 
-                getchar
+                jmp Respuesta
 
-                jmp Bucle
+                ;jmp Bucle
             ;fin
 
             Agregar:
                 Concatenar1 di,lexema
                 jmp FIN
             ;Fin
+
+            Respuesta:
+                read Result
+                ADecimal Result
+                mov bx,word ptr[bp-8]
+                cmp ax,bx
+                je Correcta
+
+                jmp Incorrecta
+            ;Fin
+
+            Correcta:
+                print pin
+                print ok
+                print mas
+                mov ax,PunteoPorOperacion[0]
+                ascii ax
+                print Num
+                print puntos
+
+                mov ax,NotaPlayer[0]
+                mov bx,PunteoPorOperacion[0]
+                add ax,bx
+                ;printReg ax
+                mov NotaPlayer[0],ax
+
+                jmp bucle
+            ;fin
+
+            Incorrecta:
+
+                print pin
+                print nook
+                print mas
+                print cero 
+                print puntos
+                print pin
+                print respues
+                mov bx,word ptr[bp-8]
+                Ascii bx
+                print Num
+                
+
+                jmp bucle
+            ;fin
         
 
         ;Fin Codigo--
@@ -834,7 +1226,7 @@
 
         ;ini Subrutina epilogo
             FIN:
-            
+
                 pop cx
                 pop bx
                 pop di

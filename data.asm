@@ -2,6 +2,7 @@
     ;Ini Uso de la Hora
         hora db 'Hora: 00:00:00',13,10,0
         fecha db 'Fecha : 00,00,2019',13,10,0
+
     ;Fin Uso de la Hora
 
 
@@ -12,13 +13,29 @@
         tab   db 9,0
         corA db 91,0
         corC db 93,0
-        texto db    'Operando1->',0
-        salio db    'aux-> ',0
-        codigo db   'id-> ',0
-        salida db    'Salio',0
-        entrada db    'Entro',0
-        nada db 'estmaos en la recursividad',0
+        texto db    91,'Bucle :v',93,0
+        entro db  'Entro alv',0
+        result db 100 dup(0)
+        Puntos db  ' Puntos',0
+        cero   db   '0',0
+        mas    db  ' + ',0
+
+        ok      db 'Correcto!',0
+        nook    db  'Incorrecto!',0
+        respues db 'Respuesta = ',0
         aux   db 100 dup(0)
+
+        parC db ')',0
+
+
+        Top10Punteos db '======================= Top 10 Punteos ======================',
+        
+
+        ptrRFinal dw ?
+        rutaRFinal db'pr/RFinal.txt',0
+        bufferRFinal db 5000 dup(0)
+        
+
        ;Fin Caracter
     
     ;Ini numeros
@@ -30,7 +47,7 @@
 ;================ Fin Variables Globales ==============================
 
 ;================ Ini MenuPrincipal ===================================
-    msm0     db  '***UNIVERSIDAD DE SANCARLOS DE GUATEMALA***',13,10,'FACULTAD DE INGENIRIA',13,10,'CIENCIAS Y SISTEMAS',13,10,'ARQUITECTURA DE COMPUTADORES  Y ENSAMBLADORES 1',13,10,'SECCION B',13,10,'NOMBRE: EDGAR JONATHAN ARRECIS MARTINEZ',13,10,'CARNTE: 201602633',13,10,'TAREA PRACTICA 3',13,10,0
+    msm0     db  '***UNIVERSIDAD DE SANCARLOS DE GUATEMALA***',13,10,'FACULTAD DE INGENIRIA',13,10,'CIENCIAS Y SISTEMAS',13,10,'ARQUITECTURA DE COMPUTADORES  Y ENSAMBLADORES 1',13,10,'SECCION B',13,10,'NOMBRE: EDGAR JONATHAN ARRECIS MARTINEZ',13,10,'CARNTE: 201602633',13,10,'TAREA PRACTICA 4',13,10,0
     msm8     db   13,10,'****Menu Principal *****',13,10,'1) Cargar Archivo ',13,10,'2) Jugar',13,10,'3) Top 10 Punteos',13,10,'4) Generar Reportes',13,10,'5) Salir',0
     msm20    db  'selecciono -> carga Archivo',13,10,0
     msm21    db  'selecciono -> Jugar',13,10,0
@@ -46,6 +63,9 @@
         ;rutaArchivo db 100 dup(0)
         rutaArchivo db 'pr/entrada.txt',0
         bufferLectura db 5000 dup(0)
+        bufferEscritura db 100 dup(0)
+        ptrfileEscritura dw ?     
+
         ptrfileLectura dw ?     
     ;Fin variables archivos
 
@@ -71,9 +91,38 @@
     noOperacion db 13,10,9,62,62,' #De Operacion: ',0
 
     inInvalida db 13,10,9,62,62,'Entrada invalida',0
-   
-    
+    PunteoFinal db 'Punteo Final = ',0
+
+    ptrPlayer word 1 dup(0)
+
+    NumeroOperaciones  word 2 dup(0)
+    PunteoPorOperacion word 2 dup(0)
+
     NamePlayer db 50 dup(0)
+    NotaPlayer word 2 dup(0) 
+   
+    ;Ini Players
+        Player1 db 50 dup(0)
+        Nota1   word 1 dup(0)
+        Player2 db 50 dup(0)
+        Nota2   word 1 dup(0)
+        Player3 db 50 dup(0)
+        Nota3   word 1 dup(0)
+        Player4 db 50 dup(0)
+        Nota4   word 1 dup(0)
+        Player5 db 50 dup(0)
+        Nota5   word 1 dup(0)
+        Player6 db 50 dup(0)
+        Nota6   word 1 dup(0)
+        Player7 db 50 dup(0)
+        Nota7   word 1 dup(0)
+        Player8 db 50 dup(0)
+        Nota8   word 1 dup(0)
+        Player9 db 50 dup(0)
+        Nota9   word 1 dup(0)
+        Player10 db 50 dup(0)
+        Nota10   word 1 dup(0)
+    ;Fin players
 
     ;Ini Operaciones
         potencia  db  42,42,0

@@ -1,6 +1,18 @@
 main proc
     Inicio:
         IniciarDs
+
+        crearReporteFinal
+        contarElementos msm0
+        escribirRFinal di, msm0
+        obtenerHora
+        contarElementos hora
+        escribirRFinal di, hora
+        obtenerFecha
+        contarElementos fecha
+        escribirRFinal di, fecha
+
+
         println msm0
         jmp menuprincipal
     ;fin etiqueta
@@ -36,19 +48,53 @@ main proc
         jmp menuprincipal
     ;fin etiqueta
     Jugar:
+        
+        mov ax,ptrPlayer[0]
+        add ax,1d
+        mov ptrPlayer[0],ax
+
         print msm21
         play
+
+
+        ;Ini Escribio Reporte
+            contarElementos salto
+            escribirRFinal di, salto
+
+            mov ax,ptrPlayer[0]
+            ascii ax
+            contarElementos Num
+            escribirRFinal di, Num
+
+            contarElementos space
+            escribirRFinal di, space
+
+            contarElementos NamePlayer
+            escribirRFinal di, NamePlayer
+
+            contarElementos space
+            escribirRFinal di, space
+
+            mov ax, NotaPlayer[0]
+            ascii ax
+            contarElementos Num
+            escribirRFinal di, Num
+        ;Fin Escribio Reporte
+
+
         getchar
         jmp menuprincipal
     ;rin etiqueta
     Top10:
         print msm22
+        cerrarRFinal
         jmp menuprincipal
     ;fin etiqueta
     Reportes:
         print msm23
         jmp menuprincipal
     ;fin etiqueta
+
 
     ;==============================Errores======================================
 
